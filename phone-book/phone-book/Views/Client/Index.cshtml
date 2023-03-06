@@ -1,0 +1,11 @@
+﻿@using phone_book.Models
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="users" class="users">
+    <div class="container">
+        @await Component.InvokeAsync("IndexView")
+    </div>
+</section>

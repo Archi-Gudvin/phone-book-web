@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Add User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="users" class="users">
+    <div class="container">
+        <form  asp-controller="Client" asp-action="Create" method="post">
+            <div class="text-field">
+                <label class="text-field__label">Логин</label>
+                <input class="text-field__input" type="text" name="lastname" placeholder="Lastname">
+
+                <label class="text-field__label">Имя</label>
+                <input class="text-field__input" type="text" name="firstname" placeholder="Firstname">
+
+                <label class="text-field__label">Отчество</label>
+                <input class="text-field__input" type="text" name="patronymic" placeholder="Patronymic">
+
+                <label class="text-field__label">Номер телефона</label>
+                <input class="text-field__input" type="text" name="phoneNumber" placeholder="Phone number">
+
+                <label class="text-field__label">Адрес</label>
+                <input class="text-field__input" type="text" name="address" placeholder="Address">
+
+                <label class="text-field__label">Описание</label>
+                <input class="text-field__input" type="text" name="description" placeholder="Description">
+
+                <input class="reset-field__input" type="submit" value="Отправить" />
+            </div>
+        </form>
+    </div>
+</section>

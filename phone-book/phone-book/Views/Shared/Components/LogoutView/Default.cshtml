@@ -1,0 +1,70 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <header class="header">
+        <div class="container">
+            <a href="#" class="header-logo">
+                <h1 class="main-header">
+                    Phone book
+                </h1>
+            </a>
+            <ul class="header-list">
+                <li class="header-item">
+                    <form method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
+                        <a class="header-link entry" href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <nav class="navigation">
+        <div class="container">
+            <ul class="navigation-list">
+                <li class="navigation-item">
+                    <a asp-controller="Client" asp-action="Index" class="navigation-link">
+                        Список пользователей
+                    </a>
+                </li>
+                <li class="navigation-item">
+                    <a asp-controller="Client" asp-action="AddClient" class="navigation-link">
+                        Добавить
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>    
+}
+else
+{
+    <header class="header">
+        <div class="container">
+            <a href="#" class="header-logo">
+                <h1 class="main-header">
+                    Phone book
+                </h1>
+            </a>
+            <ul class="header-list">
+                <li class="header-item">
+                    <a href="/Account/Login" class="header-link entry">
+                        Вход
+                    </a>
+                </li>
+                <li class="header-item">
+                    <a href="/Account/Register" class="header-link entry">
+                        Регистрация
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <nav class="navigation">
+        <div class="container">
+            <ul class="navigation-list">
+                <li class="navigation-item">
+                    <a asp-controller="Client" asp-action="Index" class="navigation-link">
+                        Список пользователей
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+}

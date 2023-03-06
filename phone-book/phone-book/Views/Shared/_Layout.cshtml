@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="@Url.Content("~/css/site.css")">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="container">
+        @await Component.InvokeAsync("LogoutView")
+        <main class="main">
+            @RenderBody()
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <ul class="footer-list">
+                    <li class="footer-item">
+                        2023 - Phone book
+                    </li>
+                    <li class="footer-item">
+                        <a href="mailto:masalskyas@gmail.com" class="footer-link">
+                            masalskyas@gmail.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

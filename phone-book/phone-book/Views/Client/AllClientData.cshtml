@@ -1,0 +1,32 @@
+﻿@using phone_book.Models;
+@model Client;
+@{
+    ViewData["Title"] = "AllClientData";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="users">
+    <div class="container">
+        <p>
+            ID: @Model.Id
+        </p>
+        <p>
+            Фамилия: @Model.LastName
+        </p>
+        <p>
+            Имя: @Model.FirstName
+        </p>
+        <p>
+            Отчество: @Model.Patronymic
+        </p>
+        <p>
+            Номер телефона: @Model.PhoneNumber
+        </p>
+        <p>
+            Адрес: @Model.Address
+        </p>
+        <p>
+            Описание: @Model.Desciption
+        </p>
+    </div>
+</section>

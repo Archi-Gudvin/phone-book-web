@@ -1,0 +1,37 @@
+﻿@using phone_book.Models;
+@model Client
+@{
+    ViewData["Title"] = "Edit Client";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="users" class="users">
+    <div class="container">
+        <form  asp-controller="Client" asp-action="Update" method="post">
+            <div class="text-field">
+                <label class="text-field__label" for="lastname">ID</label>
+                <input value="@Model.Id" class="text-field__input" type="text" name="id" placeholder="Id" readonly>
+
+                <label class="text-field__label" for="lastname">Фамилия</label>
+                <input value="@Model.LastName" class="text-field__input" type="text" name="lastname" id="lastname" placeholder="Lastname">
+
+                <label class="text-field__label" for="firstname">Имя</label>
+                <input value="@Model.FirstName" class="text-field__input" type="text" name="firstname" id="firstName" placeholder="Firstname">
+
+                <label class="text-field__label" for="patronymic">Отчество</label>
+                <input value="@Model.Patronymic" class="text-field__input" type="text" name="patronymic" id="patronymic" placeholder="Patronymic">
+
+                <label class="text-field__label" for="phoneNumber">Номер телефона</label>
+                <input value="@Model.PhoneNumber" class="text-field__input" type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone number">
+
+                <label class="text-field__label" for="address">Адрес</label>
+                <input value="@Model.Address" class="text-field__input" type="text" name="address" id="address" placeholder="Address">
+
+                <label class="text-field__label" for="description">Описание</label>
+                <input value="@Model.Desciption" class="text-field__input" type="text" name="description" id="description" placeholder="Description">
+
+                <input class="reset-field__input" type="submit" value="Редактировать" />
+            </div>
+        </form>
+    </div>
+</section>

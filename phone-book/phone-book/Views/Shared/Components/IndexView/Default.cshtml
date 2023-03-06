@@ -1,0 +1,149 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("admin"))
+    {
+        <table class="users-table">
+            <caption>
+                <h2 class="users-main-header">
+                    Таблица пользователей
+                </h2>
+            </caption>
+            <tr>
+                <th class="users-table-header-text">
+                    ID
+                </th>
+                <th class="users-table-header-text">
+                    Фамилия
+                </th>
+                <th class="users-table-header-text">
+                    Имя
+                </th>
+                <th class="users-table-header-text">
+                    Отчество
+                </th>
+                <th class="users-table-header-text">
+                    Действия
+                </th>
+            </tr>
+            <tbody>
+                @foreach (Client client in Model)
+                {
+                    <tr>
+                        <td class="users-table-body-text">
+                            <a asp-controller="Client" asp-action="AllClientData" asp-route-id=@client.Id class="users-table-body-link">
+                                @client.Id
+                            </a>
+                        </td>
+                        <td class="users-table-body-text">
+                            @client.LastName
+                        </td>
+                        <td class="users-table-body-text">
+                            @client.FirstName
+                        </td>
+                        <td class="users-table-body-text">
+                            @client.Patronymic
+                        </td>
+                        <td class="users-table-body-text">
+                            <a asp-controller="Client" asp-action="EditClient" asp-route-id=@client.Id class="users-table-body-link">
+                                Редактировать,
+                            </a>
+                            <a asp-controller="Client" asp-action="Delete" asp-route-id=@client.Id class="users-table-body-link">
+                                Удалить
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (User.IsInRole("user"))
+    {
+        <table class="users-table">
+            <caption>
+                <h2 class="users-main-header">
+                    Таблица пользователей
+                </h2>
+            </caption>
+            <tr>
+                <th class="users-table-header-text">
+                    ID
+                </th>
+                <th class="users-table-header-text">
+                    Фамилия
+                </th>
+                <th class="users-table-header-text">
+                    Имя
+                </th>
+                <th class="users-table-header-text">
+                    Отчество
+                </th>
+            </tr>
+            <tbody>
+                @foreach (Client client in Model)
+                {
+                    <tr>
+                        <td class="users-table-body-text">
+                            <a asp-controller="Client" asp-action="AllClientData" asp-route-id=@client.Id class="users-table-body-link">
+                                @client.Id
+                            </a>
+                        </td>
+                        <td class="users-table-body-text">
+                            @client.LastName
+                        </td>
+                        <td class="users-table-body-text">
+                            @client.FirstName
+                        </td>
+                        <td class="users-table-body-text">
+                            @client.Patronymic
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <table class="users-table">
+        <caption>
+            <h2 class="users-main-header">
+                Таблица пользователей
+            </h2>
+        </caption>
+        <tr>
+            <th class="users-table-header-text">
+                ID
+            </th>
+            <th class="users-table-header-text">
+                Фамилия
+            </th>
+            <th class="users-table-header-text">
+                Имя
+            </th>
+            <th class="users-table-header-text">
+                Отчество
+            </th>
+        </tr>
+        <tbody>
+            @foreach (Client client in Model)
+            {
+                <tr>
+                    <td class="users-table-body-text">
+                        <a asp-controller="Client" asp-action="AllClientData" asp-route-id=@client.Id class="users-table-body-link">
+                            @client.Id
+                        </a>
+                    </td>
+                    <td class="users-table-body-text">
+                        @client.LastName
+                    </td>
+                    <td class="users-table-body-text">
+                        @client.FirstName
+                    </td>
+                    <td class="users-table-body-text">
+                        @client.Patronymic
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
