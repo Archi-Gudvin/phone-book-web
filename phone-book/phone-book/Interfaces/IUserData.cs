@@ -25,6 +25,6 @@ namespace phone_book.Interfaces
         /// Метод обновления данных зарегистрированного пользователя
         /// </summary>
         /// <param name="user"></param>
-        void Update(User user);
+        Task Update(User user);
     }
 }

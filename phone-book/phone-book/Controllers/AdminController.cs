@@ -31,24 +31,24 @@ namespace phone_book.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(int id, string name, string email)
+        public async Task<IActionResult> Update(User model)
         {
-            var user = new User()
-            {
-                Id = id,
-                Email = email,
-                Name = name,
-            };
+            if (model.Email != null && model.Name != null)
+            { 
+                var user = new User()
+                {
+                    Id = model.Id,
+                    Email = model.Email,
+                    Name = model.Name,
+                };
 
-            userData.Update(user);
+                await userData.Update(user);
 
-            return Redirect("~/Admin/");
-        }
+                return Redirect("~/Admin/");
+            }
+            else ModelState.AddModelError("", "Не все поля заполнены");
 
-        [HttpPost]
-        public IActionResult ResetPassword(string password)
-        {
-            return Redirect("~/Admin/");
+            return View(model);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace phone_book.Data
-{
+{  
     public class EFUserData : IUserData
     {
         private readonly ApplicationContext Context;
@@ -26,14 +26,14 @@ namespace phone_book.Data
             return this.Context.Users.Find(id);
         }
 
-        public void Update(User updatedUser)
+        public async Task Update(User updatedUser)
         {
             User currentUser = Get(updatedUser.Id);
             currentUser.Name = updatedUser.Name;
             currentUser.Email = updatedUser.Email;
 
             Context.Users.Update(currentUser);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
     }
 }

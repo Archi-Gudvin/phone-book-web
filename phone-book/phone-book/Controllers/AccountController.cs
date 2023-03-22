@@ -109,14 +109,14 @@ namespace RolesApp.Controllers
         }
 
         /// <summary>
-        /// Логика смены пароля
+        /// Смена пароля
         /// </summary>
         /// <param name="id"></param>
         /// <param name="email"></param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ForgotPassword(int id, string email)
+        public async Task<IActionResult> ChangePassword(int id, string email)
         {
             AccountModel accountModel = new AccountModel(_context);
 
@@ -132,7 +132,7 @@ namespace RolesApp.Controllers
                         await emailService.SendEmailAsync(email, "Change Password",
                             $"Ваш новый пароль: {user.Password}");
 
-                        return View("ForgotPasswordConfirmation");
+                        return View("ChangePasswordConfirmation");
                     }
                     else return NotFound();
                 }

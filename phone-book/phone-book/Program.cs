@@ -28,5 +28,6 @@ namespace phone_book
                 .UseStartup<Startup>()
                 .ConfigureLogging(log => log.AddConsole())
                 .Build();
+
     }
 }

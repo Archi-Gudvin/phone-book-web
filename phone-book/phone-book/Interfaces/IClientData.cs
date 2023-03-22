@@ -23,13 +23,13 @@ namespace phone_book.Interfaces
         /// Метод создания клиента
         /// </summary>
         /// <param name="user"></param>
-        Task Create(Client user);
+        Task Create(Client client);
 
         /// <summary>
         /// Метод обновления данных клиента
         /// </summary>
         /// <param name="user"></param>
-        Task Update(Client user);
+        Task Update(Client client);
 
         /// <summary>
         /// Метод удаления клиента
