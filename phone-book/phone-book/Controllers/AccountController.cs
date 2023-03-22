@@ -7,15 +7,23 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using phone_book.Data;
 using phone_book.AuthoClientApp;
+using phone_book.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using phone_book.Services;
+using phone_book.Interfaces;
 
 namespace RolesApp.Controllers
 {
     public class AccountController : Controller
     {
         private ApplicationContext _context;
-        public AccountController(ApplicationContext context)
+        private readonly IUserData userData;
+
+        public AccountController(ApplicationContext context, IUserData UsertData)
         {
-            _context = context;
+            this._context = context;
+            this.userData = UsertData;
         }
 
         [HttpGet]
@@ -34,7 +42,7 @@ namespace RolesApp.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    user = new User { Email = model.Email, Password = model.Password };
+                    user = new User { Email = model.Email, Name = model.Name, Password = model.Password };
                     Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
                     if (userRole != null)
                         user.Role = userRole;
@@ -77,6 +85,7 @@ namespace RolesApp.Controllers
             }
             return View(model);
         }
+
         private async Task Authenticate(User user)
         {
             // создаем один claim
@@ -97,6 +106,43 @@ namespace RolesApp.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Client");
+        }
+
+        /// <summary>
+        /// Логика смены пароля
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(int id, string email)
+        {
+            AccountModel accountModel = new AccountModel(_context);
+
+            if (ModelState.IsValid)
+            {
+                var user = userData.Get(id);
+
+                if (user != null)
+                {
+                    if (accountModel.ChangePassword(user, email))
+                    {
+                        EmailService emailService = new EmailService();
+                        await emailService.SendEmailAsync(email, "Change Password",
+                            $"Ваш новый пароль: {user.Password}");
+
+                        return View("ForgotPasswordConfirmation");
+                    }
+                    else return NotFound();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+
+            return RedirectToAction("Login", "Account");
         }
     }
 }

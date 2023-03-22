@@ -1,0 +1,42 @@
+﻿@model Client;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="users" class="users">
+    <div class="container">
+        <form asp-controller="Client" asp-action="Create" method="post">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="text-field">
+
+                <label class="text-field__label" asp-for="LastName">Фамилия*</label>
+                <input asp-for="LastName" class="text-field__input" type="text" placeholder="Lastname">
+                <span asp-validation-for="LastName" />
+
+                <label class="text-field__label" asp-for="FirstName">Имя*</label>
+                <input asp-for="FirstName" class="text-field__input" type="text" placeholder="Firstname">
+                <span asp-validation-for="FirstName" />
+
+                <label class="text-field__label" asp-for="Patronymic">Отчество</label>
+                <input asp-for="Patronymic" class="text-field__input" type="text" placeholder="Patronymic">
+                <span asp-validation-for="Patronymic" />
+
+                <label class="text-field__label" asp-for="PhoneNumber">Номер телефона*</label>
+                <input asp-for="PhoneNumber" class="text-field__input" type="text" placeholder="Phone number">
+                <span asp-validation-for="PhoneNumber" />
+
+                <label class="text-field__label" asp-for="Address">Адрес*</label>
+                <input asp-for="Address" class="text-field__input" type="text" placeholder="Address">
+                <span asp-validation-for="Address" />
+
+                <label class="text-field__label" asp-for="Desciption">Описание</label>
+                <input asp-for="Desciption" class="text-field__input" type="text" placeholder="Description">
+                <span asp-validation-for="Desciption" />
+
+                <input class="reset-field__input" type="submit" value="Сохранить" />
+            </div>
+        </form>
+    </div>
+</section>

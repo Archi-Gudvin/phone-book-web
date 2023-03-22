@@ -1,5 +1,6 @@
 ﻿using phone_book.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace phone_book.Interfaces
 {
@@ -22,19 +23,19 @@ namespace phone_book.Interfaces
         /// Метод создания клиента
         /// </summary>
         /// <param name="user"></param>
-        void Create(Client user);
+        Task Create(Client user);
 
         /// <summary>
         /// Метод обновления данных клиента
         /// </summary>
         /// <param name="user"></param>
-        void Update(Client user);
+        Task Update(Client user);
 
         /// <summary>
         /// Метод удаления клиента
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

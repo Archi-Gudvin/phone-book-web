@@ -1,0 +1,30 @@
+﻿@using phone_book.AuthoClientApp;
+@model User;
+@{
+    ViewData["Title"] = "Get";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="users">
+    <div class="container">
+        <form method="post">
+            <div class="text-field">
+                <label class="text-field__label" for="lastname">ID</label>
+                <input value="@Model.Id" class="text-field__input" type="text" name="id" placeholder="Id" readonly>
+
+                <label class="text-field__label" for="lastname">Имя:</label>
+                <input value="@Model.Name" class="text-field__input" type="text" name="name" id="name"
+                       placeholder="Name">
+
+                <label class="text-field__label" for="lastname"> Email:</label>
+                <input value="@Model.Email" class="text-field__input" type="text" name="email" id="email"
+                       placeholder="Email">
+
+                <input class="reset-field__input" type="submit" value="Сброс пароля"
+                       asp-action="ForgotPassword" asp-controller="Account" />
+                <input class="reset-field__input" type="submit" value="Сохранить"
+                       asp-action="Update" asp-controller="Admin" />
+            </div>
+        </form>
+    </div>
+</section>

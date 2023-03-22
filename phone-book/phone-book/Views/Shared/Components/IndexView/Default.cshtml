@@ -1,11 +1,18 @@
-﻿@if (User.Identity.IsAuthenticated)
+﻿@using phone_book.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<Client>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@*TODO: довести до ума локализацию*@
+
+@if (User.Identity.IsAuthenticated)
 {
     @if (User.IsInRole("admin"))
     {
         <table class="users-table">
             <caption>
                 <h2 class="users-main-header">
-                    Таблица пользователей
+                    Таблица клиентов
                 </h2>
             </caption>
             <tr>
@@ -13,13 +20,19 @@
                     ID
                 </th>
                 <th class="users-table-header-text">
-                    Фамилия
+                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.LastNameSort">
+                        Фамилия
+                    </a>
                 </th>
                 <th class="users-table-header-text">
-                    Имя
+                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.FirstNameSort">
+                        Имя
+                    </a>
                 </th>
                 <th class="users-table-header-text">
-                    Отчество
+                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.PatronymicSort">
+                        Отчество
+                    </a>
                 </th>
                 <th class="users-table-header-text">
                     Действия
@@ -30,7 +43,7 @@
                 {
                     <tr>
                         <td class="users-table-body-text">
-                            <a asp-controller="Client" asp-action="AllClientData" asp-route-id=@client.Id class="users-table-body-link">
+                            <a asp-controller="Client" asp-action="Get" asp-route-id=@client.Id class="users-table-body-link">
                                 @client.Id
                             </a>
                         </td>
@@ -44,7 +57,7 @@
                             @client.Patronymic
                         </td>
                         <td class="users-table-body-text">
-                            <a asp-controller="Client" asp-action="EditClient" asp-route-id=@client.Id class="users-table-body-link">
+                            <a asp-controller="Client" asp-action="Update" asp-route-id=@client.Id class="users-table-body-link">
                                 Редактировать,
                             </a>
                             <a asp-controller="Client" asp-action="Delete" asp-route-id=@client.Id class="users-table-body-link">
@@ -61,7 +74,7 @@
         <table class="users-table">
             <caption>
                 <h2 class="users-main-header">
-                    Таблица пользователей
+                    Таблица клиентов
                 </h2>
             </caption>
             <tr>
@@ -69,13 +82,19 @@
                     ID
                 </th>
                 <th class="users-table-header-text">
-                    Фамилия
+                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.LastNameSort">
+                        Фамилия
+                    </a>
                 </th>
                 <th class="users-table-header-text">
-                    Имя
+                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.FirstNameSort">
+                        Имя
+                    </a>
                 </th>
                 <th class="users-table-header-text">
-                    Отчество
+                    <a asp-action="Index" asp-route-sortOrder="@ViewBag.PatronymicSort">
+                        Отчество
+                    </a>
                 </th>
             </tr>
             <tbody>
@@ -83,7 +102,7 @@
                 {
                     <tr>
                         <td class="users-table-body-text">
-                            <a asp-controller="Client" asp-action="AllClientData" asp-route-id=@client.Id class="users-table-body-link">
+                            <a asp-controller="Client" asp-action="Get" asp-route-id=@client.Id class="users-table-body-link">
                                 @client.Id
                             </a>
                         </td>
@@ -107,7 +126,7 @@ else
     <table class="users-table">
         <caption>
             <h2 class="users-main-header">
-                Таблица пользователей
+                Таблица клиентов
             </h2>
         </caption>
         <tr>
@@ -115,13 +134,19 @@ else
                 ID
             </th>
             <th class="users-table-header-text">
-                Фамилия
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.LastNameSort">
+                    Фамилия
+                </a>
             </th>
             <th class="users-table-header-text">
-                Имя
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.FirstNameSort">
+                    Имя
+                </a>
             </th>
             <th class="users-table-header-text">
-                Отчество
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.PatronymicSort">
+                    Отчество
+                </a>
             </th>
         </tr>
         <tbody>
@@ -129,7 +154,7 @@ else
             {
                 <tr>
                     <td class="users-table-body-text">
-                        <a asp-controller="Client" asp-action="AllClientData" asp-route-id=@client.Id class="users-table-body-link">
+                        <a asp-controller="Client" asp-action="Get" asp-route-id=@client.Id class="users-table-body-link">
                             @client.Id
                         </a>
                     </td>

@@ -12,6 +12,11 @@
             <span asp-validation-for="Email" />
         </div>
         <div class="form-group">
+            <label class="authentication-form-text" asp-for="Name">Введите имя</label>
+            <input class="authentication-form-input" type="text" asp-for="Name" />
+            <span asp-validation-for="Name" />
+        </div>
+        <div class="form-group">
             <label class="authentication-form-text" asp-for="Password">Введите пароль</label>
             <input class="authentication-form-input" asp-for="Password" />
             <span asp-validation-for="Password" />

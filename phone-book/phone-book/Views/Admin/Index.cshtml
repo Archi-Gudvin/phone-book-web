@@ -1,0 +1,47 @@
+﻿@using phone_book.AuthoClientApp
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="users" class="users">
+    <div class="container">
+        <table class="users-table">
+            <caption>
+                <h2 class="users-main-header">
+                    Таблица пользователей
+                </h2>
+            </caption>
+            <tr>
+                <th class="users-table-header-text">
+                    ID
+                </th>
+                <th class="users-table-header-text">
+                    Имя
+                </th>
+                <th class="users-table-header-text">
+                    Email
+                </th>
+            </tr>
+            <tbody>
+                @foreach (User user in Model)
+                {
+                    <tr>
+                        <td class="users-table-body-text">
+                            <a asp-controller="Admin" asp-action="Get" asp-route-id=@user.Id
+                               class="users-table-body-link">
+                                @user.Id
+                            </a>
+                        </td>
+                        <td class="users-table-body-text">
+                            @user.Name
+                        </td>
+                        <td class="users-table-body-text">
+                            @user.Email
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

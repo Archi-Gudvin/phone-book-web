@@ -26,13 +26,13 @@ namespace phone_book.Data
             return this.Context.Clients.Find(id);
         }
 
-        public void Create(Client client)
+        public async Task Create(Client client)
         {
             Context.Clients.Add(client);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public void Update(Client updatedUser)
+        public async Task Update(Client updatedUser)
         {
             Client currentUser = Get(updatedUser.Id);
             currentUser.LastName = updatedUser.LastName;
@@ -43,18 +43,18 @@ namespace phone_book.Data
             currentUser.Desciption = updatedUser.Desciption;
 
             Context.Clients.Update(currentUser);
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
             Client client = Get(id);
 
             if (client != null)
             {
                 Context.Clients.Remove(client);
-                Context.SaveChanges();
-            } 
+                await Context.SaveChangesAsync();
+            }
         }
     }
 }
