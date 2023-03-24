@@ -38,33 +38,33 @@
                     Действия
                 </th>
             </tr>
-            <tbody>
+            <tbody id="users">
                 @foreach (Client client in Model)
-                {
-                    <tr>
-                        <td class="users-table-body-text">
-                            <a asp-controller="Client" asp-action="Get" asp-route-id=@client.Id class="users-table-body-link">
-                                @client.Id
-                            </a>
-                        </td>
-                        <td class="users-table-body-text">
-                            @client.LastName
-                        </td>
-                        <td class="users-table-body-text">
-                            @client.FirstName
-                        </td>
-                        <td class="users-table-body-text">
-                            @client.Patronymic
-                        </td>
-                        <td class="users-table-body-text">
-                            <a asp-controller="Client" asp-action="Update" asp-route-id=@client.Id class="users-table-body-link">
-                                Редактировать,
-                            </a>
-                            <a asp-controller="Client" asp-action="Delete" asp-route-id=@client.Id class="users-table-body-link">
-                                Удалить
-                            </a>
-                        </td>
-                    </tr>
+                    {
+                <tr>
+                <td class="users-table-body-text">
+                        <a asp-controller="Client" asp-action="Get" asp-route-id=@client.Id class="users-table-body-link">
+                            @client.Id
+                        </a>
+                    </td>
+                    <td class="users-table-body-text">
+                        @client.LastName
+                    </td>
+                    <td class="users-table-body-text">
+                        @client.FirstName
+                    </td>
+                    <td class="users-table-body-text">
+                        @client.Patronymic
+                    </td>
+                    <td class="users-table-body-text">
+                        <a asp-controller="Client" asp-action="Update" asp-route-id=@client.Id class="users-table-body-link">
+                            Редактировать,
+                        </a>
+                        <a asp-controller="Client" asp-action="Delete" asp-route-id=@client.Id class="users-table-body-link">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

@@ -44,7 +44,7 @@ namespace phone_book.Controllers
 
                 await userData.Update(user);
 
-                return Redirect("~/Admin/");
+                return Redirect("~/Admin");
             }
             else ModelState.AddModelError("", "Не все поля заполнены");
 
