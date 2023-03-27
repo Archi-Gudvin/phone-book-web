@@ -6,19 +6,16 @@
 <form class="authentication-form" asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <div class="form-group">
-            <label class="authentication-form-text" asp-for="Email">Введите Email</label>
-            <input class="authentication-form-input" type="text" asp-for="Email" />
-            <span asp-validation-for="Email" />
-        </div>
-        <div class="form-group">
-            <label class="authentication-form-text" asp-for="Password">Введите пароль</label>
-            <input class="authentication-form-input" asp-for="Password" />
-            <span asp-validation-for="Password" />
-        </div>
+        <label class="text-field__label" asp-for="Email">Введите Email*</label>
+        <input class="text-field__input" type="text" asp-for="Email" />
+        <span asp-validation-for="Email" />
+
+        <label class="text-field__label" asp-for="Password">Введите пароль*</label>
+        <input class="text-field__input" asp-for="Password" />
+        <span asp-validation-for="Password" />
         <ul class="authentication-form-list">
             <li class="authentication-form-item">
-                <input type="submit" value="Войти" class="authentication-item-button" />
+                <input type="submit" value="Войти" class="submit-field__input" />
             </li>
             <li class="authentication-form-item">
                 <a asp-action="Register" asp-controller="Account">Регистрация</a>

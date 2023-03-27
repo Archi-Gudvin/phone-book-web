@@ -118,7 +118,7 @@ namespace RolesApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ChangePassword(int id, string email)
         {
-            AccountModel accountModel = new AccountModel(_context);
+            Account accountModel = new Account(_context);
 
             if (ModelState.IsValid)
             {

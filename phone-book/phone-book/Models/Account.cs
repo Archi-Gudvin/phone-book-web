@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace phone_book.Models
 {
-    public class AccountModel : IAccount
+    public class Account : IAccount
     {
         //TODO: реализовать хеширование паролей
 
         private readonly ApplicationContext Context;
 
-        public AccountModel(ApplicationContext context)
+        public Account(ApplicationContext context)
         {
             this.Context = context;
         }
