@@ -20,11 +20,13 @@ namespace RolesApp.Controllers
     {
         private ApplicationContext _context;
         private readonly IUserData userData;
+        private readonly IAccount account;
 
-        public AccountController(ApplicationContext context, IUserData UsertData)
+        public AccountController(ApplicationContext Context, IUserData UsertData, IAccount Account)
         {
-            this._context = context;
+            this._context = Context;
             this.userData = UsertData;
+            this.account = Account;
         }
 
         [HttpGet]
@@ -120,17 +122,21 @@ namespace RolesApp.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin, user")]
-        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
+        public IActionResult ChangePassword(ChangePasswordModel model)
         {
             if (model.Id != 0 && model.OldPassword != null && model.NewPassword != null && model.ConfirmPassword != null)
             {
                 var user = userData.Get(model.Id);
 
-                user.Password = model.NewPassword;              
-
-                await userData.Update(user);
-
-                return Redirect("~/Account/Login");
+                if (model.NewPassword == model.ConfirmPassword && model.OldPassword == user.Password)
+                {
+                    if (account.ChangePassword(model.Id, model.NewPassword))
+                    {
+                        return Redirect("~/");
+                    }
+                    else return NotFound();
+                }
+                else ModelState.AddModelError("", "Пароли не совпадают");
             }
             else ModelState.AddModelError("", "Не все поля заполнены");
 
@@ -141,15 +147,13 @@ namespace RolesApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(int id, string email)
         {
-            Account accountModel = new Account(_context);
-
             if (ModelState.IsValid)
             {
                 var user = userData.Get(id);
 
                 if (user != null)
                 {
-                    if (accountModel.ChangePassword(user, email))
+                    if (account.ResetPassword(user, email))
                     {
                         EmailService emailService = new EmailService();
                         await emailService.SendEmailAsync(email, "Change Password",

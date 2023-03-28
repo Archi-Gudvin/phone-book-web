@@ -20,10 +20,6 @@ namespace phone_book.Models
             this.Context = context;
         }
 
-        /// <summary>
-        /// Метод генерации пароля
-        /// </summary>
-        /// <returns></returns>
         public string GetNewPassword()
         {
             string NewPassword = "";
@@ -37,18 +33,25 @@ namespace phone_book.Models
             return NewPassword;
         }
 
-        /// <summary>
-        /// Метод изменения пароля
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="email"></param>
-        /// <returns></returns>
-        public bool ChangePassword(User user, string email)
+        public bool ResetPassword(User user, string email)
         {
             if (user.Email == email)
             {
                 var NewPassword = GetNewPassword();
 
+                user.Password = NewPassword;
+                Context.Users.Update(user);
+                this.Context.SaveChanges();
+                return true;
+            }
+            else return false;
+        }
+
+        public bool ChangePassword(int id, string NewPassword)
+        {
+            if (id != 0)
+            {
+                var  user = Context.Users.Find(id);
                 user.Password = NewPassword;
                 Context.Users.Update(user);
                 this.Context.SaveChanges();

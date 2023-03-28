@@ -10,7 +10,26 @@ namespace phone_book.Interfaces
 {
     public interface IAccount
     {
+        /// <summary>
+        /// Создание нового пароля
+        /// </summary>
+        /// <returns></returns>
         string GetNewPassword();
-        bool ChangePassword(User user, string email);
+
+        /// <summary>
+        /// Метод сброса пароля
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        bool ResetPassword(User user, string email);
+
+        /// <summary>
+        /// Метод изменения пароля
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="NewPassword"></param>
+        /// <returns></returns>
+        bool ChangePassword(int id, string NewPassword);
     }
 }

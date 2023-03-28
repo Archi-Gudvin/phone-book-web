@@ -45,6 +45,7 @@ namespace phone_book
 
             services.AddScoped<IClientData, EFClientData>();
             services.AddScoped<IUserData, EFUserData>();
+            services.AddScoped<IAccount, Account>();
 
             services.AddMvc();
             services.AddControllers();
