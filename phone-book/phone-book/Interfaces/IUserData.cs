@@ -26,5 +26,7 @@ namespace phone_book.Interfaces
         /// </summary>
         /// <param name="user"></param>
         Task Update(User user);
+
+        User GetUserByEmail(string email);
     }
 }

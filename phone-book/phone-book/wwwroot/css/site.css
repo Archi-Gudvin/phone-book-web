@@ -205,7 +205,7 @@ body {
 
 .text-field__input {
     display: block;
-    width: 30%;
+    width: 200px;
     height: calc(2.25rem + 2px);
     margin: 0 0.5rem 0.5rem 0;
     padding: 0.375rem 0.75rem;
@@ -280,18 +280,18 @@ body {
 
 .authentication-main-header {
     display: inline-block;
-    margin: 0 1em 10px 0;
-    font-weight: 200;
+    margin: 0 1em 20px 0;
+    font-weight: 500;
 }
 
 .authentication-form {
     display: block;
-    margin: 0 1em 0 0;
+    margin: 0 1em 0 1em;
 }
 
 .authentication-form-list {
     margin: 0;
-    padding-left: 1em;
+    padding: 0;
     list-style: none;
 }
 

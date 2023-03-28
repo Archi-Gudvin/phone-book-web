@@ -35,5 +35,22 @@ namespace phone_book.Data
             Context.Users.Update(currentUser);
             await Context.SaveChangesAsync();
         }
+
+        public User GetUserByEmail(string email)
+        {
+            var users = Context.Users.Where(e => e.Email == email);
+
+            User user = new User();
+
+            foreach (var item in users)
+            {
+                user.Id = item.Id;
+                user.Name = item.Name;
+                user.Email = item.Email;
+                user.Password = item.Password;
+            }
+
+            return user;
+        }
     }
 }

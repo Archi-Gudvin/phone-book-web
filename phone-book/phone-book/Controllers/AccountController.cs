@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using phone_book.Services;
 using phone_book.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace RolesApp.Controllers
 {
@@ -101,6 +102,8 @@ namespace RolesApp.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+        
+
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
@@ -108,15 +111,35 @@ namespace RolesApp.Controllers
             return RedirectToAction("Index", "Client");
         }
 
-        /// <summary>
-        /// Смена пароля
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="email"></param>
-        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "admin, user")]
+        public IActionResult ChangePassword(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            if (model.Id != 0 && model.OldPassword != null && model.NewPassword != null && model.ConfirmPassword != null)
+            {
+                var user = userData.Get(model.Id);
+
+                user.Password = model.NewPassword;              
+
+                await userData.Update(user);
+
+                return Redirect("~/Account/Login");
+            }
+            else ModelState.AddModelError("", "Не все поля заполнены");
+
+            return View(model);
+        }
+
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ChangePassword(int id, string email)
+        public async Task<IActionResult> ResetPassword(int id, string email)
         {
             Account accountModel = new Account(_context);
 

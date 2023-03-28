@@ -1,0 +1,40 @@
+﻿@model phone_book.AuthoClientApp.User
+
+@{
+    ViewData["Title"] = "Get";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="profile" class="profile">
+    <div class="container">
+        <ul class="profile-list">
+            <li class="profile-item">
+                <h2 class="profile-item-header">
+                    О себе
+                </h2>
+            </li>
+            <li class="profile-item">
+                <form method="post">
+                    <div class="text-field">
+                        <label class="text-field__label" asp-for="Name">Имя</label>
+                        <input class="text-field__input" type="text" asp-for="@Model.Name" placeholder="Введите имя">
+
+                        <label class="text-field__label" asp-for="Email">Email</label>
+                        <input class="text-field__input" type="text" asp-for="@Model.Email" placeholder="Введите email">
+
+                        <ul class="authentication-form-list">
+                            <li class="authentication-form-item">
+                                <input class="submit-field__input" type="submit" value="Сохранить"
+                                       asp-action="Update" asp-controller="User" asp-route-id="@Model.Id"/>
+                            </li>
+                            <li class="authentication-form-item">
+                                <input class="submit-field__input" type="submit" value="Изменить пароль"
+                                       asp-action="ChangePassword" asp-controller="Account" asp-route-id="@Model.Id"/>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </div>
+</section>

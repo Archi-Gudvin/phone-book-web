@@ -20,35 +20,9 @@ namespace phone_book.Controllers
             this.userData = UsertData;
         }
 
-        public IActionResult Index()
-        {
-            return View(userData.Get());
-        }
-
         public IActionResult Get(int id)
         {
             return View(userData.Get(id));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Update(User model)
-        {
-            if (model.Email != null && model.Name != null)
-            { 
-                var user = new User()
-                {
-                    Id = model.Id,
-                    Email = model.Email,
-                    Name = model.Name,
-                };
-
-                await userData.Update(user);
-
-                return Redirect("~/Admin");
-            }
-            else ModelState.AddModelError("", "Не все поля заполнены");
-
-            return View(model);
-        }
+        }  
     }
 }

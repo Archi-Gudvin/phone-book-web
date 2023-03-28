@@ -11,11 +11,19 @@
                 </a>
                 <ul class="header-list">
                     <li class="header-item">
-                        <form method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
-                            <a class="header-link entry" href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>
-                        </form>
+                        <div class="header-profile">
+                            <button onclick="profileFunction()" class="header-profile-button">Профиль</button>
+                            <div id="profile-content" class="header-profile-content">
+                                <a asp-action="Get" asp-controller="User" class="header-profile-content-link">
+                                    Мой профиль
+                                </a>
+                                <form class="header-profile-content-link" method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
+                                    <a href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>
+                                </form>
+                            </div>
+                        </div>
                     </li>
-                </ul>
+                </ul> 
             </div>
         </header>
         <nav class="navigation">
@@ -52,9 +60,17 @@
                 </a>
                 <ul class="header-list">
                     <li class="header-item">
-                        <form method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
-                            <a class="header-link entry" href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>
-                        </form>
+                        <div class="header-profile">
+                            <button onclick="profileFunction()" class="header-profile-button">Профиль</button>
+                            <div id="profile-content" class="header-profile-content">
+                                <a asp-action="Get" asp-controller="User" class="header-profile-content-link">
+                                    Мой профиль
+                                </a>
+                                <form class="header-profile-content-link" method="post" asp-controller="Account" asp-action="Logout" id="logoutform" asp-antiforgery="true">
+                                    <a href="#" onclick="document.getElementById('logoutform').submit()">Выход</a>
+                                </form>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
