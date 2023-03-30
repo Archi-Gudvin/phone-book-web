@@ -22,7 +22,7 @@ namespace phone_book.Interfaces
         /// <param name="user"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        bool ResetPassword(User user, string email);
+        bool ResetPassword(string email);
 
         /// <summary>
         /// Метод изменения пароля

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using phone_book.AuthoClientApp;
 using phone_book.Data;
 using phone_book.Interfaces;
@@ -14,10 +15,12 @@ namespace phone_book.Models
         //TODO: реализовать хеширование паролей
 
         private readonly ApplicationContext Context;
+        private readonly IUserData userData;
 
-        public Account(ApplicationContext context)
+        public Account(ApplicationContext context, IUserData UserData)
         {
             this.Context = context;
+            this.userData = UserData;
         }
 
         public string GetNewPassword()
@@ -33,18 +36,19 @@ namespace phone_book.Models
             return NewPassword;
         }
 
-        public bool ResetPassword(User user, string email)
+        public bool ResetPassword(string email)
         {
-            if (user.Email == email)
+            var user = userData.GetUserByEmail(email);
+           
+            if (user.Email == email && user != null)
             {
                 var NewPassword = GetNewPassword();
-
                 user.Password = NewPassword;
                 Context.Users.Update(user);
                 this.Context.SaveChanges();
                 return true;
             }
-            else return false;
+            else return false;        
         }
 
         public bool ChangePassword(int id, string NewPassword)

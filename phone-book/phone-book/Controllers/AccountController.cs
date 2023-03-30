@@ -104,7 +104,7 @@ namespace RolesApp.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
-        
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -143,33 +143,33 @@ namespace RolesApp.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(int id, string email)
+
+        [HttpGet]
+        public IActionResult FogotPassword()
         {
-            if (ModelState.IsValid)
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> FogotPassword(FogotPasswordModel model)
+        {
+            if (model.Email != null )
             {
-                var user = userData.Get(id);
-
-                if (user != null)
+                if (account.ResetPassword(model.Email))
                 {
-                    if (account.ResetPassword(user, email))
-                    {
-                        EmailService emailService = new EmailService();
-                        await emailService.SendEmailAsync(email, "Change Password",
-                            $"Ваш новый пароль: {user.Password}");
+                    var user = userData.GetUserByEmail(model.Email);
+                    EmailService emailService = new EmailService();
+                    await emailService.SendEmailAsync(model.Email, "Reset Password",
+                        $"Ваш новый пароль: {user.Password}");
 
-                        return View("ChangePasswordConfirmation");
-                    }
-                    else return NotFound();
+                    return View("ForgotPasswordConfirmation");
                 }
-                else
-                {
-                    return NotFound();
-                }
+                else ModelState.AddModelError("", "Такой пользователь не зарегистрирован"); 
             }
+            else ModelState.AddModelError("", "Не все поля заполнены");
 
-            return RedirectToAction("Login", "Account");
+            return View(model); 
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using phone_book.AuthoClientApp;
+﻿using Microsoft.EntityFrameworkCore;
+using phone_book.AuthoClientApp;
 using phone_book.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace phone_book.Data
 
         public User GetUserByEmail(string email)
         {
-            var users = Context.Users.Where(e => e.Email == email);
+            var users = Context.Users.AsNoTracking().Where(e => e.Email == email);
 
             User user = new User();
 
