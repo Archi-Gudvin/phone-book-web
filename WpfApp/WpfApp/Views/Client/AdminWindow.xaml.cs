@@ -12,41 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp.Models;
+using WpfApp.ViewModel;
 
 namespace WpfApp.Views.Client
 {
     public partial class AdminWindow : Window
     { 
-        ClientDataApi context;
 
         public AdminWindow()
         {
             InitializeComponent();
-            context = new ClientDataApi();
-            
-            btnLoadClient.Click += delegate
-            {
-                clientsDataGrid.ItemsSource = context.GetClients();
-            };
-
-            btnAddClient.Click += delegate
-            {
-                AddClient addClient = new AddClient();
-                addClient.Show();
-            };
-
-            btnEditClient.Click += delegate
-            {
-                Models.Client client = (Models.Client)clientsDataGrid.SelectedItem;
-                EditClient editClient = new EditClient(context.GetClient(client.Id));
-                editClient.Show();
-            };
-        }
-
-        private void btnDeleteClient(object sender, RoutedEventArgs e)
-        {
-            Models.Client client = ((FrameworkElement)sender).DataContext as Models.Client;
-            context.DeleteClient(client.Id);
-        }
+            DataContext = new ClientViewModel();
+        } 
     }
 }

@@ -5,32 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Views.Client"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800">
+        Title="Main Window"
+        Height="450" Width="820">
 
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem x:Name="btnEditClient"
+            <MenuItem Command="{Binding EditCommand}"
+                      CommandParameter="{Binding ElementName=clientsDataGrid, Path=SelectedItem}"
                       Header="Редактировать"/>
 
-            <MenuItem Click="btnDeleteClient"
+            <MenuItem Command="{Binding DeleteCommand}"
+                      CommandParameter="{Binding ElementName=clientsDataGrid, Path=SelectedItem}"
                       Header="Удалить" />
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>
-        <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5">
+        <TabControl Margin="0,5,0,10">
             <TabItem Width="200"
                      Height="40"
                      Header="Список пользователей">
-                <Grid Margin="0,57,0,0">
+                <Grid Margin="0,65,0,5" Width="788">
 
-                    <Button x:Name="btnAddClient"
+                    <Button Command="{Binding AddCommand}"
                     Content="Добавить"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Width="97"
                     Height="28" Margin="15,-38,0,0"/>
 
-                    <Button x:Name="btnLogout"
+                    <Button
                     Content="Выход"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -38,16 +41,8 @@
                     Height="28"
                     Margin="128,-38,0,0"/>
 
-                    <Button x:Name="btnLoadClient"
-                    Content="Загрузить"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="105"
-                    Height="28"
-                    Margin="653,-30,0,0"/>
-
-                    <DataGrid x:Name="clientsDataGrid" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
-                    RowBackground="LightGray" AlternatingRowBackground="White" Margin="0,10,0,0" Grid.ColumnSpan="3">
+                    <DataGrid x:Name="clientsDataGrid" ItemsSource="{Binding Clients}" AutoGenerateColumns="False" 
+                              Margin="-15,0,322,-13" SelectedItem="{Binding SelectedClient}">
 
                         <DataGrid.Columns>
                             <DataGridHyperlinkColumn Header="ID" Binding="{Binding Path=Id}" IsReadOnly="True"/>
@@ -62,5 +57,29 @@
                 </Grid>
             </TabItem>
         </TabControl>
+
+        <ListBox x:Name="concreteClient" DataContext="{Binding SelectedClient}" Margin="494,111,10,5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Выбранный клиент:"  />
+                        <TextBlock Text="ID" />
+                        <TextBox Text="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <TextBlock Text="Фамилия" />
+                        <TextBox Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Имя" />
+                        <TextBox Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Отчество" />
+                        <TextBox Text="{Binding Path=Patronymic, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Номер телефона" />
+                        <TextBox Text="{Binding Path=PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Адрес" />
+                        <TextBox Text="{Binding Path=Address, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Описание" />
+                        <TextBox Text="{Binding Path=Desciption, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

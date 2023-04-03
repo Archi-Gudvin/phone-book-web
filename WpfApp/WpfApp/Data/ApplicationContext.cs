@@ -13,6 +13,11 @@ namespace WpfApp.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\alexm\Users.mdf;Integrated Security=True;Connect Timeout=30");
+        }
+
     }
 }
