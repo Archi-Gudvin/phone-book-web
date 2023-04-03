@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using phone_book.AuthoClientApp;
 using phone_book.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace phone_book.Controllers
 {
@@ -19,6 +13,12 @@ namespace phone_book.Controllers
         {
             this.userData = UsertData;
         }
+
+        public IActionResult Index()
+        {
+            return View(userData.Get());
+        }
+
 
         public IActionResult Get(int id)
         {

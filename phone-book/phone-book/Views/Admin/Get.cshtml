@@ -7,7 +7,7 @@
 
 <section class="users">
     <div class="container">
-        <form method="post">
+        <form>
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div class="text-field">
                 <label class="text-field__label" for="lastname">ID</label>
@@ -23,10 +23,10 @@
                        placeholder="Email">
                 <span asp-validation-for="Email" />
 
-                <input class="reset-field__input" type="submit" value="Сброс пароля"
-                       asp-action="ChangePassword" asp-controller="Account" />
-                <input class="reset-field__input" type="submit" value="Сохранить"
-                       asp-action="Update"  asp-controller="Admin"/>
+                <input class="submit-field__input" type="submit" value="Сброс пароля"
+                       asp-action="FogotPassword" asp-controller="Account" />
+                <input class="submit-field__input" type="submit" value="Сохранить"
+                       asp-action="Update"  asp-controller="Admin" method="post"/>
             </div>
         </form>
     </div>
