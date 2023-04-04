@@ -7,27 +7,22 @@ using System.Text;
 using WpfApp.Models;
 using WpfApp.Data;
 using Microsoft.EntityFrameworkCore;
-using WpfApp.Views.Client;
 using WpfApp.Interfaces;
+using WpfApp.Views;
 
 namespace WpfApp.ViewModel
 {
     class ClientViewModel : INotifyPropertyChanged
     {
-        ApplicationContext context = new ApplicationContext();
-        private IClientData clientData;
+        static ApplicationContext context = new ApplicationContext();
+        private IClientData clientData = new EFClientData(context);
 
         private Client selectedClient;
-        //RelayCommand? addCommand;
-        //RelayCommand? editCommand;
-        //RelayCommand? deleteCommand;
+        RelayCommand? addCommand;
+        RelayCommand? editCommand;
+        RelayCommand? deleteCommand;
 
         public ObservableCollection<Client> Clients { get; set; }
-
-        public ClientViewModel(IClientData  ClientData)
-        {
-            this.clientData = ClientData;
-        }
 
         public ClientViewModel()
         {
@@ -35,6 +30,9 @@ namespace WpfApp.ViewModel
             Clients = context.Clients.Local.ToObservableCollection();
         }
 
+        /// <summary>
+        /// Конкретный клиент
+        /// </summary>
         public Client SelectedClient
         {
             get { return selectedClient; }
@@ -45,71 +43,91 @@ namespace WpfApp.ViewModel
             }
         }
 
-        //// команда добавления
-        //public RelayCommand AddCommand
-        //{
-        //    get
-        //    {
-        //        //return addCommand ??
-        //        //  (addCommand = new RelayCommand((o) =>
-        //        //  {
-        //        //      ClientWindow clientWindow = new ClientWindow(new Client());
-        //        //      if (clientWindow.ShowDialog() == true)
-        //        //      {
-        //        //          Client client = clientWindow.Client;
-        //        //          clientData.Create(client);
-        //        //      }
-        //        //  }));
-        //    }
-        //}
+        /// <summary>
+        /// Команда добавления клиента
+        /// </summary>
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ??
+                  (addCommand = new RelayCommand((o) =>
+                  {
+                      ClientWindow clientWindow = new ClientWindow(new Client());
+                      if (clientWindow.ShowDialog() == true)
+                      {
+                          Client client = clientWindow.Client;
 
-        //// команда редактирования
-        //public RelayCommand EditCommand
-        //{
-        //    //get
-        //    //{
-        //    //    //return editCommand ??
-        //    //    //  (editCommand = new RelayCommand((selectedItem) =>
-        //    //    //  {
-        //    //    //      // получаем выделенный объект
-        //    //    //      User? user = selectedItem as User;
-        //    //    //      if (user == null) return;
+                          clientData.Create(client);
+                      }
+                  }));
+            }
+        }
 
-        //    //    //      User vm = new User
-        //    //    //      {
-        //    //    //          Id = user.Id,
-        //    //    //          Name = user.Name,
-        //    //    //          Age = user.Age
-        //    //    //      };
-        //    //    //      UserWindow userWindow = new UserWindow(vm);
+        /// <summary>
+        /// Команда редактирования
+        /// </summary>
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return editCommand ??
+                  (editCommand = new RelayCommand((selectedItem) =>
+                  {
+                      // получаем выделенный объект
+                      selectedItem = selectedClient;
+                      Client? client = selectedItem as Client;
+                      if (client == null) return;
 
+                      //создаем выбранного клиента
+                      Client vm = new Client
+                      {
+                          Id = client.Id,
+                          LastName = client.LastName,
+                          FirstName = client.FirstName,
+                          Patronymic = client.Patronymic,
+                          PhoneNumber = client.PhoneNumber,
+                          Address = client.Address,
+                          Desciption = client.Desciption
+                      };
 
-        //    //    //      if (userWindow.ShowDialog() == true)
-        //    //    //      {
-        //    //    //          user.Name = userWindow.User.Name;
-        //    //    //          user.Age = userWindow.User.Age;
-        //    //    //          db.Entry(user).State = EntityState.Modified;
-        //    //    //          db.SaveChanges();
-        //    //    //      }
-        //    //    //  }));
-        //    //}
-        //}
+                      //передаем выбранного клиента в окно редактирования
+                      ClientWindow clientWindow = new ClientWindow(vm);
 
-        // команда удаления
-        //public RelayCommand DeleteCommand
-        //{
-        //    get
-        //    {
-        //        return deleteCommand ??
-        //          (deleteCommand = new RelayCommand((selectedItem) =>
-        //          {
-        //              // получаем выделенный объект
-        //              Client? client = selectedItem as Client;
-        //              if (client == null) return;
-        //              clientData.Delete(client.Id);
-        //          }));
-        //    }
-        //}
+                      if (clientWindow.ShowDialog() == true)
+                      {
+                          //присваиваем новые значения
+                          client.LastName = clientWindow.Client.LastName;
+                          client.FirstName = clientWindow.Client.FirstName;
+                          client.Patronymic = clientWindow.Client.Patronymic;
+                          client.PhoneNumber = clientWindow.Client.PhoneNumber;
+                          client.Address = clientWindow.Client.Address;
+                          client.Desciption = clientWindow.Client.Desciption;
+                          clientData.Update(client);
+                      }
+                  }));
+            }
+        }
+
+        
+        /// <summary>
+        /// Команда удаления
+        /// </summary>
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand ??
+                  (deleteCommand = new RelayCommand((selectedItem) =>
+                  {
+                      // получаем выделенный объект
+                      selectedItem = selectedClient;
+                      Client? client = selectedItem as Client;
+                      if (client == null) return;
+                      clientData.Delete(client.Id);
+                  }));
+            }
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
