@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp.Models;
 
-namespace WpfApp.Views
+namespace WpfApp.Views.Client
 { 
     public partial class ClientWindow : Window
     {
@@ -21,7 +21,7 @@ namespace WpfApp.Views
         {
             InitializeComponent();
             Client = client;
-            btnAdd.Click += (o,e) =>
+            btnSend.Click += (o,e) =>
             {
                 Client.LastName = txtLastName.Text;
                 Client.FirstName = txtFirstName.Text;
@@ -32,7 +32,13 @@ namespace WpfApp.Views
 
                 DialogResult = true;
             };
+
             DataContext = Client;
-        } 
+        }
+
+        public ClientWindow()
+        {
+            InitializeComponent();  
+        }
     }
 }

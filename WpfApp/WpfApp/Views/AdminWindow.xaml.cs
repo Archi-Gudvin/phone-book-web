@@ -22,7 +22,8 @@ namespace WpfApp.Views.Client
         public AdminWindow()
         {
             InitializeComponent();
-            DataContext = new ClientViewModel();
+            clientsDataGrid.DataContext = new ClientViewModel();
+            usersDataGrid.DataContext = new UserViewModel();
         } 
     }
 }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp.Views"
+        xmlns:local="clr-namespace:WpfApp.Views.Account"
         mc:Ignorable="d"
         Title="Login" Height="450" Width="800">
 
@@ -28,7 +28,7 @@
                 FontSize="15"
                 Width="120"/>
 
-                <TextBox
+                <TextBox x:Name="txtEmail"
                 Text="{Binding Email}"
                 Width="174"
                 Margin="0,-10,0,0"/>
@@ -37,22 +37,22 @@
                 Content="Введите пароль:"
                 FontSize="15"/>
 
-                <PasswordBox
-                Name="{Binding Password}"
+                <PasswordBox x:Name="txtPassword"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top" 
                 Width="174" 
                 Margin="0,-10,0,0"/>
 
                 <WrapPanel >
-                    <Button Content="Вход"
+                    <Button x:Name="btnLogin"
+                    Content="Вход"
                     Width="82"
                     Margin="0,0,10,0">
                     </Button>
 
-                    <Button Content="Регистрация"
-                        Width="119"
-                        >
+                    <Button x:Name="btnRegister"
+                    Content="Регистрация"
+                    Width="119" Cursor="Hand">
                     </Button>
                 </WrapPanel>
             </ListBox>

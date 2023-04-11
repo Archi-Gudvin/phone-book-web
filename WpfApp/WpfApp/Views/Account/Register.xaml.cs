@@ -20,6 +20,11 @@ namespace WpfApp.Views.Account
         public Register()
         {
             InitializeComponent();
+
+            btnRegister.Click += (o, e) =>
+            {
+
+            };
         }
     }
 }

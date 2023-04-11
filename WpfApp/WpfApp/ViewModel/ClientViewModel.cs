@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Collections.ObjectModel;
-using System.Text;
-using WpfApp.Models;
 using WpfApp.Data;
-using Microsoft.EntityFrameworkCore;
 using WpfApp.Interfaces;
-using WpfApp.Views;
+using WpfApp.Models;
+using WpfApp.Views.Client;
 
 namespace WpfApp.ViewModel
 {

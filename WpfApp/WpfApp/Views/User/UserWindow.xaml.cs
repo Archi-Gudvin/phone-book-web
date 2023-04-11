@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp.AuthoClientApp;
 
 namespace WpfApp.Views.User
 {
@@ -17,9 +18,21 @@ namespace WpfApp.Views.User
     /// </summary>
     public partial class UserWindow : Window
     {
-        public UserWindow()
+        public AuthoClientApp.User User = new AuthoClientApp.User();
+
+        public UserWindow(AuthoClientApp.User user)
         {
             InitializeComponent();
+            User = user;
+            btnSend.Click += (o, e) =>
+            {
+                User.Name = txtName.Text;
+                User.Email = txtEmail.Text;
+
+                DialogResult = true;
+            };
+
+            DataContext = User;
         }
     }
 }

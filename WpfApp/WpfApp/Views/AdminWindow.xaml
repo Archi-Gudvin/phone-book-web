@@ -23,7 +23,8 @@
             <TabItem Width="200"
                      Height="40"
                      Header="Список клиентов">
-                <Grid Margin="0,65,0,5" Width="797">
+                <Grid Margin="0,65,0,5"
+                      Width="797">
 
                     <Button
                     Content="Выход"
@@ -61,7 +62,7 @@
                             </DataGrid.ContextMenu>
 
                             <DataGrid.Columns>
-                                <DataGridHyperlinkColumn Header="ID" Binding="{Binding Path=Id}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=LastName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=FirstName}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}" IsReadOnly="True"/>
@@ -75,13 +76,13 @@
                     <Border Margin="461,0,10,10"
                             CornerRadius="20"
                             Background="GhostWhite">
-                        <StackPanel Margin="0,47,0,0"
-                                    DataContext="{Binding SelectedClient}"
-                                    Height="178"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Center"
-                                    RenderTransformOrigin="0.5,0.5"
-                                    Width="254">
+                        <StackPanel DataContext="{Binding SelectedClient}"
+                            Margin="0,47,0,0"
+                            Height="188"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Center"
+                            Width="254">
+                            
                             <StackPanel.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleX="1"/>
@@ -106,7 +107,6 @@
                             UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         </StackPanel>
                     </Border>
-
                 </Grid>
             </TabItem>
             <TabItem Width="200"
@@ -128,37 +128,36 @@
                             Background="GhostWhite">
                         <DataGrid x:Name="usersDataGrid" 
                                   ItemsSource="{Binding Users}" 
-                                  AutoGenerateColumns="True" 
+                                  AutoGenerateColumns="False" 
                                   SelectedItem="{Binding SelectedUser}"
                                   Height="281"
                                   VerticalAlignment="Center"
-                                  Margin="10"
+                                  Margin="10,0,10,0"
                                   Background="GhostWhite">
 
                             <DataGrid.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Command="{Binding EditUserCommand}"
+                                    <MenuItem Command="{Binding EditCommand}"
                                 CommandParameter="{Binding ElementName=usersDataGrid, Path=SelectedItem}"
                                 Header="Редактировать"/>
 
-                                    <MenuItem Command="{Binding DeleteUserCommand}"
+                                    <MenuItem Command="{Binding DeleteCommand}"
                                 CommandParameter="{Binding ElementName=usersDataGrid, Path=SelectedItem}"
                                 Header="Удалить" />
                                 </ContextMenu>
                             </DataGrid.ContextMenu>
 
                             <DataGrid.Columns>
-                                <DataGridHyperlinkColumn Header="ID" Binding="{Binding Path=Id}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Path=Name}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" IsReadOnly="True"/>
                             </DataGrid.Columns>
 
                             <DataGrid.Items>
                             </DataGrid.Items>
+
                         </DataGrid>
                     </Border>
-
-
                 </Grid>
             </TabItem>
         </TabControl>
